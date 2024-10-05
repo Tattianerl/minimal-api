@@ -15,10 +15,10 @@ public class AdministradorServico : IAdministradorServico
         _Contexto = contexto;
     }
 
-     public Administrador? BuscaPorId(int id)
+     public Administrador? BuscaPorId(int Id)
     {
        return _Contexto.Administradores
-                            .Where(a => a.id == id)
+                            .Where(a => a.Id == Id)
                             .FirstOrDefault();
         
     }
@@ -51,5 +51,10 @@ public class AdministradorServico : IAdministradorServico
 
           return query.ToList();
     
+    }
+
+    public object Todos()
+    {
+        throw new NotImplementedException();
     }
 }

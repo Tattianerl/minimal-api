@@ -29,7 +29,7 @@ public class VeiculoServico : IVeiculoServico
 
     public Veiculo? BuscaPorId(int Id)
     {
-       return _contexto.Veiculos.Where(v => v.id == Id).FirstOrDefault();
+       return _contexto.Veiculos.Where(v => v.Id == Id).FirstOrDefault();
     }
 
     public void Incluir(Veiculo veiculo)

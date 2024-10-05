@@ -7,7 +7,7 @@ public class Veiculo
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int id { get; set; } = default!;
+    public int Id { get; set; } = default!;
 
     [Required]
     [StringLength(150)]

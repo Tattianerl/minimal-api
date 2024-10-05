@@ -12,6 +12,9 @@ namespace MinimalApi.Infraestrutura.Db
             _configuracaoAppSettings = configuracaoAppSettings;
         }
 
+       
+
+
         // Definição de DbSet para as entidades
         public DbSet<Administrador> Administradores { get; set; } = default!;
         public DbSet<Veiculo> Veiculos { get; set; } = default!;
@@ -21,7 +24,7 @@ namespace MinimalApi.Infraestrutura.Db
         {
             modelBuilder.Entity<Administrador>().HasData(
                 new Administrador {
-                    id = 1,
+                    Id = 1,
                     Email = "administrador@teste.com",
                     Senha = "123456", 
                     Perfil = "Adm"
