@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Test.Mocks;
 using Microsoft.Extensions.DependencyInjection;
 using minimal_api.Dominio.Interfaces;
-
+using Test.Mocks;
 namespace Test.Helpers;
 
 public class Setup

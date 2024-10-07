@@ -34,7 +34,7 @@ public class AdministradorRequestTest
         var content = new StringContent(JsonSerializer.Serialize(loginDTO), Encoding.UTF8,  "Application/json");
 
         // Act
-        var response = await Setup.Client.PostAsync("/administradores/login", content);
+        var response = await Setup.client.PostAsync("/administradores/login", content);
 
         // Assert
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
