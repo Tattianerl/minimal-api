@@ -24,14 +24,16 @@ public class Startup
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
-        key = Configuration?.GetSection("Jwt")?.ToString() ?? "";
+        // Acessa diretamente a chave JWT a partir da seção apropriada
+        key = Configuration.GetSection("Jwt")["Key"] ?? "";
     }
 
-    private string key = "";
+    private readonly string key;
     public IConfiguration Configuration { get; set; } = default!;
 
     public void ConfigureServices(IServiceCollection services)
     {
+        // Configuração de autenticação com JWT
         services.AddAuthentication(option =>
         {
             option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -49,9 +51,11 @@ public class Startup
 
         services.AddAuthorization();
 
+        // Registro de serviços
         services.AddScoped<IAdministradorServico, AdministradorServico>();
         services.AddScoped<IVeiculoServico, VeiculoServico>();
 
+        // Configuração do Swagger para documentação da API
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
@@ -80,41 +84,47 @@ public class Startup
             });
         });
 
+        // Configuração do Entity Framework com SQL Server
         services.AddDbContext<DbContexto>(options =>
-          {
-              options.UseSqlServer(Configuration.GetConnectionString("sqlServer"));
-          });
+        {
+            options.UseSqlServer(Configuration.GetConnectionString("sqlServer"));
+        });
 
-
+        // Configuração do CORS
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(
-                builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-                });
+            options.AddDefaultPolicy(builder =>
+    {
+        var allowedOrigins = Configuration["Cors:AllowedOrigins"]?.Split(",") ?? Array.Empty<string>();
+        builder.WithOrigins(allowedOrigins) // Verifica se o valor não é nulo antes de usar
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
         });
-    }
 
+    }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseSwagger();
         app.UseSwaggerUI();
 
+        // Configura o roteamento
         app.UseRouting();
 
+        // Habilita autenticação e autorização
         app.UseAuthentication();
         app.UseAuthorization();
 
+        // Habilita CORS
         app.UseCors();
 
         app.UseEndpoints(endpoints =>
         {
 
             #region Home
-            endpoints.MapGet("/", () => Results.Json(new Home())).AllowAnonymous().WithTags("Home");
+            endpoints.MapGet("/", () => Results.Json(new Home()))
+                     .AllowAnonymous()
+                     .WithTags("Home");
             #endregion
 
             #region Administradores
