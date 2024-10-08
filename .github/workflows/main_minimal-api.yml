@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - minimal-api
 
 on:
@@ -25,13 +22,19 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o "${{ github.workspace }}/myapp"
+
+      - name: List output directory (Debugging Step)
+        run: dir "${{ github.workspace }}/myapp"
+
+      - name: Zip published files
+        run: Compress-Archive -Path "${{ github.workspace }}/myapp/*" -DestinationPath "${{ github.workspace }}/myapp.zip"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: "${{ github.workspace }}/myapp.zip"
 
   deploy:
     runs-on: windows-latest
@@ -40,7 +43,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -60,6 +63,4 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'minimal-api'
-          slot-name: 'Production'
-          package: .
-          
+          package: "${{ github.workspace }}/myapp.zip"
