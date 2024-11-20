@@ -42,7 +42,7 @@ Para executar os testes automatizados, utilize o seguinte comando:
 ## Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests com melhorias.
 
-Licença
+## Licença
 Este projeto está licenciado sob MIT. Veja o arquivo LICENSE para mais detalhes.
 
 
