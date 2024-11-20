@@ -39,8 +39,14 @@ Para executar os testes automatizados, utilize o seguinte comando:
   ```bash
   dotnet test
   ```
-## Contribuição
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests com melhorias.
+## Como Contribuir
+Se você quiser contribuir para este projeto, siga os seguintes passos:
+
+Faça um fork deste repositório.
+Crie uma branch com suas mudanças (git checkout -b feature/nova-funcionalidade).
+Comite suas mudanças (git commit -am 'Adiciona nova funcionalidade').
+Envie a branch para o seu fork (git push origin feature/nova-funcionalidade).
+Abra um pull request.
 
 ## Licença
 Este projeto está licenciado sob MIT. Veja o arquivo LICENSE para mais detalhes.
