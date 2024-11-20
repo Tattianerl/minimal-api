@@ -5,7 +5,7 @@ Este projeto é um exemplo de implementação de APIs minimalistas utilizando .N
 ## Tecnologias Utilizadas
 
 - **Linguagem**: C#
-- **Framework**: .NET 6/7
+- **Framework**: .NET 8
 - **Estrutura**:
   - Diretório `Api`: Contém a lógica principal da API.
   - Diretório `Test`: Configurações e arquivos para testes automatizados.
